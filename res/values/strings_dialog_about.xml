@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_about_heading">About</string>
+    <string name="dialog_about_content">Version: %1$s\nAuthor(s): %2$s\nThank You: %3$s\n\nLicense:\n%4$s</string>
+    <string name="dialog_about_authors">Ralph Haußmann</string>
+    <string name="dialog_about_thanks"><a href="www.google.de">Harriet</a></string>
+    <string name="dialog_about_version_unknown">Unknown</string>
+    <string name="dialog_about_license_read_failed">Error while reading license file.</string>
+    <string name="dialog_about_close">Close</string>
+</resources>
