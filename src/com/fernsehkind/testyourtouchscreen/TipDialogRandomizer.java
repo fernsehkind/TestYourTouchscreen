@@ -51,14 +51,8 @@ public class TipDialogRandomizer {
         }
         else {
             Random rand = new Random();
-            try {
-                index = rand.nextInt(max);
-                textToShow = tips.get(index).getText();
-            }
-            catch (Exception e) {
-                textToShow = "muh";
-            }
-            
+            index = rand.nextInt(max);
+            textToShow = tips.get(index).getText();
         }
 
         TipDialog dialog = new TipDialog(context, textToShow);
