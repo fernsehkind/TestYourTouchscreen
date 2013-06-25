@@ -27,19 +27,18 @@ package com.fernsehkind.testyourtouchscreen;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fernsehkind.testyourtouchscreen.helper.ScreenHelper;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.WindowManager;
 
 
 public class TouchDrawView extends View implements OnTouchListener {
@@ -51,6 +50,8 @@ public class TouchDrawView extends View implements OnTouchListener {
     public int touchPointerTransparency = 0;
     public boolean evaluatePressure = false;
     public int pressureAmplification = 5;
+    public final int viewWidth;
+    public final int viewHeight;
     
     private static final int NUMBER_OF_POINTER_ID = 20;
     private List<List<TouchPoint>> pointerIdsToDraw = new ArrayList<List<TouchPoint>>();
@@ -58,8 +59,6 @@ public class TouchDrawView extends View implements OnTouchListener {
     
     private boolean initialized = false;
     private Paint paint = new Paint();
-    private final int screenWidth;
-    private final int screenHeight;
     private Canvas canvasBackbuffer;
     private Bitmap bitmapBackbuffer;
     private Canvas canvasTouches;
@@ -69,8 +68,8 @@ public class TouchDrawView extends View implements OnTouchListener {
     public TouchDrawView(Context context) {
         super(context);
         
-        screenWidth = getScreenWidth();
-        screenHeight = getScreenHeight();
+        viewWidth = ScreenHelper.getScreenWidth(context);
+        viewHeight = ScreenHelper.getScreenHeight(context);
         
         for (int i = 0; i < NUMBER_OF_POINTER_ID; i++) {
             pointerIds[i] = new PointerId(i);
@@ -229,7 +228,7 @@ public class TouchDrawView extends View implements OnTouchListener {
     private void initCanvasBackbuffer() {
         
         Bitmap.Config conf = Bitmap.Config.ARGB_8888;
-        bitmapBackbuffer = Bitmap.createBitmap(screenWidth, screenHeight, conf);
+        bitmapBackbuffer = Bitmap.createBitmap(viewWidth, viewHeight, conf);
         canvasBackbuffer = new Canvas(bitmapBackbuffer);
         
         drawBackbuffer();
@@ -238,7 +237,7 @@ public class TouchDrawView extends View implements OnTouchListener {
     private void drawBackbuffer() {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         paint.setColor(Color.WHITE);
-        canvasBackbuffer.drawRect(0, 0, screenWidth, screenHeight, paint);
+        canvasBackbuffer.drawRect(0, 0, viewWidth, viewHeight, paint);
         if (drawGrid) {
             drawGrid(canvasBackbuffer);
         }
@@ -247,16 +246,16 @@ public class TouchDrawView extends View implements OnTouchListener {
     private void drawGrid(Canvas canvas) {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         paint.setColor(Color.rgb(0xAA, 0xAA, 0xAA));
-        for (int indexRow = 0; (indexRow * gridSize) < screenHeight; indexRow++){
-            canvas.drawLine(0, indexRow * gridSize, screenWidth-1, indexRow * gridSize, paint);
+        for (int indexRow = 0; (indexRow * gridSize) < viewHeight; indexRow++){
+            canvas.drawLine(0, indexRow * gridSize, viewWidth-1, indexRow * gridSize, paint);
         }
-        for (int indexCol = 0; (indexCol * gridSize) < screenWidth; indexCol++){
-            canvas.drawLine(indexCol * gridSize, 0, indexCol * gridSize, screenHeight-1, paint);
+        for (int indexCol = 0; (indexCol * gridSize) < viewWidth; indexCol++){
+            canvas.drawLine(indexCol * gridSize, 0, indexCol * gridSize, viewHeight-1, paint);
         }
     }
     
     private void initCanvasTouches() {
-        bitmapTouches = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888);
+        bitmapTouches = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         canvasTouches = new Canvas(bitmapTouches);
     }
 
@@ -275,38 +274,6 @@ public class TouchDrawView extends View implements OnTouchListener {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    private int getScreenWidth() {
-        WindowManager wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        final Point outSize = new Point();
-        int screenWidth = 0;
-        try {
-            display.getSize(outSize);
-            screenWidth = outSize.x;
-        }
-        catch (java.lang.NoSuchMethodError ignore) {
-            screenWidth = display.getWidth();
-        }
-        return screenWidth;
-    }
-
-    @SuppressWarnings("deprecation")
-    private int getScreenHeight() {
-        WindowManager wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        final Point outSize = new Point();
-        int screenHeight = 0;
-        try {
-            display.getSize(outSize);
-            screenHeight = outSize.y;
-        }
-        catch (java.lang.NoSuchMethodError ignore) {
-            screenHeight = display.getHeight();
-        }
-        return screenHeight;
-    }
-    
     private boolean isValidPointerId(int pointerId) {
         if (pointerId < 0) {
             return false;
