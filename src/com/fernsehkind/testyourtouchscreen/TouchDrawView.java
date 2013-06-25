@@ -63,7 +63,7 @@ public class TouchDrawView extends View implements OnTouchListener {
     private Bitmap bitmapBackbuffer;
     private Canvas canvasTouches;
     private Bitmap bitmapTouches;
-    
+    private TargetPatternBitmap targetPatternBitmap;
     
     public TouchDrawView(Context context) {
         super(context);
@@ -99,6 +99,10 @@ public class TouchDrawView extends View implements OnTouchListener {
         initCanvasBackbuffer();
         initCanvasTouches();
         invalidate();
+    }
+    
+    public void setTargetPatternBitmap(TargetPatternBitmap targetPatternBitmap) {
+        this.targetPatternBitmap = targetPatternBitmap;
     }
       
     public boolean onTouch(View view, MotionEvent ev) {
@@ -221,6 +225,9 @@ public class TouchDrawView extends View implements OnTouchListener {
     public void onDraw(Canvas canvas) {
         if (initialized) {
             canvas.drawBitmap(bitmapBackbuffer, 0, 0, null);
+            if (targetPatternBitmap != null) {
+                canvas.drawBitmap(targetPatternBitmap.getBitmap(), 0, 0, null);
+            }
             canvas.drawBitmap(bitmapTouches, 0, 0, null);
         }
     }
