@@ -39,7 +39,7 @@ public class TestYourTouchscreenActivity extends Activity {
 
     private Class<?> activityToStart;
     private SharedPreferences sharedPrefs;
-    private TipDialog tipDialog;
+    private SimpleDialog tipDialog;
     private TipDialogRandomizer tipDialogRandomizer = new TipDialogRandomizer();
     
     @Override
@@ -91,12 +91,13 @@ public class TestYourTouchscreenActivity extends Activity {
         }
         else {
             tipDialog = tipDialogRandomizer.getTipDialog(this, activity);
+            tipDialog.setChecked(true);
             tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     Editor editor = sharedPrefs.edit();
-                    editor.putBoolean("show_tips", tipDialog.getCheckBoxShowHintValue());
+                    editor.putBoolean("show_tips", tipDialog.isCheckBoxChecked());
                     editor.commit();
                     startGivenActivity(activityToStart);
                 }

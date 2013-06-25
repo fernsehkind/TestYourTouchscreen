@@ -32,25 +32,32 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class TipDialog extends Dialog {
+public class SimpleDialog extends Dialog {
+    private final CheckBox checkBox;
+    private final Button closeButton;
+    private final TextView textView;
     
-    public TipDialog(final Context context, final String tip) {
+    public SimpleDialog(final Context context, final String heading, final String textViewText, final String checkBoxText) {
         super(context);
-        this.setContentView(R.layout.dialog_tip);
-        this.setTitle(R.string.dialog_tip_heading);
+        this.setContentView(R.layout.dialog_simple);
+        checkBox = (CheckBox)this.findViewById(R.id.checkBox);
+        closeButton = (Button)this.findViewById(R.id.dialogButtonOK);
+        textView = (TextView)this.findViewById(R.id.text);
+        this.setTitle(heading);
         setupCloseButton();
-        setCheckBoxShowHintToTrue();
-        setTextViewText(tip);
+        setCheckBoxText(checkBoxText);
+        setTextViewText(textViewText);
     }
 
-    public boolean getCheckBoxShowHintValue() {
-        CheckBox showTipsCheckBox = (CheckBox)this.findViewById(R.id.checkBoxShowHints);
-        return showTipsCheckBox.isChecked();
-        
+    public void setChecked(boolean checkState) {
+        checkBox.setChecked(checkState);
+    }
+    
+    public boolean isCheckBoxChecked() {
+        return checkBox.isChecked();
     }
     
     private void setupCloseButton() {
-        Button closeButton = (Button)this.findViewById(R.id.dialogButtonOK);
         closeButton.setOnClickListener(new View.OnClickListener() {
             
             @Override
@@ -60,14 +67,17 @@ public class TipDialog extends Dialog {
         });
     }
 
-    private void setCheckBoxShowHintToTrue() {
-        CheckBox showTipsCheckBox = (CheckBox)this.findViewById(R.id.checkBoxShowHints);
-        showTipsCheckBox.setChecked(true);
+    private void setCheckBoxText(final String checkBoxText) {
+        if (checkBoxText == null) {
+            checkBox.setVisibility(View.GONE);
+        }
+        else {
+            checkBox.setText(checkBoxText);
+        }
     }
     
-    private void setTextViewText(String tip) {
-        TextView textView = (TextView)this.findViewById(R.id.text);
+    private void setTextViewText(String textViewText) {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setText(tip);
+        textView.setText(textViewText);
     }
 }

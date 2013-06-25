@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="dialog_tip_heading">Did you know?</string>
-    <string name="dialog_tip_read_failed">Error while reading hint file.</string>
-    <string name="dialog_tip_close">Close</string>
-    <string name="dialog_tip_show_tips">Show tips?</string>
-</resources>

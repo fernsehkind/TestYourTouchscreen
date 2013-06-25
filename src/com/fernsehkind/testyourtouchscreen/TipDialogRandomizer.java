@@ -32,7 +32,7 @@ import android.content.Context;
 
 public class TipDialogRandomizer {
 
-    public TipDialog getTipDialog(Context context, Class<?> activity) {
+    public SimpleDialog getTipDialog(Context context, Class<?> activity) {
         List<Tip> tips = new ArrayList<Tip>();
         
         for (Tip tip : Tip.values()) {
@@ -55,7 +55,7 @@ public class TipDialogRandomizer {
             textToShow = tips.get(index).getText();
         }
 
-        TipDialog dialog = new TipDialog(context, textToShow);
+        SimpleDialog dialog = new SimpleDialog(context, context.getString(R.string.dialog_simple_hint_title), textToShow, context.getString(R.string.dialog_simple_hint_show_tips));
         return dialog;
     }
 }

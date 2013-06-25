@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_simple_close">Close</string>
+    <string name="dialog_simple_hint_title">Did you know?</string>
+    <string name="dialog_simple_hint_show_tips">Show tips?</string>
+</resources>
