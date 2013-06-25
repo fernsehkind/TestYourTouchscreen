@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_number_of_touch_point_test_title">Detect number of supported touches</string>
+    <string name="activity_number_of_touch_point_test_start_dialog_title">Instructions</string>
+    <string name="activity_number_of_touch_point_test_start_dialog_text">Place all your fingers simultaneously on the touchscreen. Make sure that the distance between your fingers is not too small and that your fingers are evenly spread. Try to place your fingers on the black dots. Move your fingers a little bit. Ask a person to help out with additional fingers. After that release all fingers and press the back button of your device to get the test result.</string>
+    <string name="activity_number_of_touch_point_test_end_dialog_title">Test result</string>
+    <string name="activity_number_of_touch_point_test_end_dialog_text">Your touchscreen reported %1$d different touches (fingers).</string>
+</resources>

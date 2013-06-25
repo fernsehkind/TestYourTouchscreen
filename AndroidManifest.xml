@@ -29,6 +29,13 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
+            android:name="com.fernsehkind.testyourtouchscreen.NumberOfTouchPointTestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_number_of_touch_point_test_title"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
             android:name="com.fernsehkind.testyourtouchscreen.SettingsActivity"
             android:label="@string/activity_settings_title" >
         </activity>

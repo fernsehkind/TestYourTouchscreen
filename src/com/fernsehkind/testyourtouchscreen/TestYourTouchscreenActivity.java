@@ -74,7 +74,11 @@ public class TestYourTouchscreenActivity extends Activity {
     }
     
     public void onStartMultiTouchDrawTest(View view) {
-        prepareStartOfActivity(MultiTouchDrawTestActivity.class);
+        prepareStartOfActivity(MultiTouchDrawTestActivity.class, true);
+    }
+    
+    public void onStartNumberOfTouchPointTest(View view) {
+        prepareStartOfActivity(NumberOfTouchPointTestActivity.class, false);
     }
     
     private void startGivenActivity(Class<?> activity) {
@@ -82,10 +86,10 @@ public class TestYourTouchscreenActivity extends Activity {
         startActivity(intent);
     }
     
-    private void prepareStartOfActivity(Class<?> activity) {
+    private void prepareStartOfActivity(Class<?> activity, boolean showTipsIfActivated) {
         activityToStart = activity;
         
-        if (!sharedPrefs.getBoolean("show_tips", true)) {
+        if (!sharedPrefs.getBoolean("show_tips", true) || !showTipsIfActivated) {
             startGivenActivity(activity);
             return;
         }

@@ -17,6 +17,16 @@
         android:layout_marginTop="38dp"
         android:text="@+string/activity_multi_touch_draw_test_title"
         android:onClick="onStartMultiTouchDrawTest" />
-        
 
+    <Button
+        android:id="@+id/button_start_number_of_touch_point_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_start_multi_touch_draw_test"
+        android:layout_marginTop="10dp"
+        android:text="@+string/activity_number_of_touch_point_test_title"
+        android:onClick="onStartNumberOfTouchPointTest" />
+        
+    
 </RelativeLayout>
